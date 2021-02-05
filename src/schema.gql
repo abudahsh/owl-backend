@@ -1,0 +1,38 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Post {
+  id: ID!
+  title: String!
+  content: String
+  author: User
+}
+
+type User {
+  id: ID!
+  deviceID: String!
+  nickname: String
+  posts: [Post!]
+}
+
+type Query {
+  loginUser(deviceID: String!): User
+}
+
+type Mutation {
+  registerUser(data: SignupUserInput!): User!
+  createPost(data: createPostInput!): Post!
+}
+
+input SignupUserInput {
+  nickname: String
+  id: String
+  deviceId: String
+}
+
+input createPostInput {
+  authorId: Float!
+  content: String
+  title: String
+}
