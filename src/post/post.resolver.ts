@@ -1,17 +1,8 @@
-import { Args, Field, InputType, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { Inject } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { Post } from 'src/entities/post';
-
-@InputType()
-class createPostInput {
-  @Field()
-  authorId?: number;
-  @Field({ nullable: true })
-  content?: string;
-  @Field({ nullable: true })
-  title: string;
-}
+import { createPostInput, updatePostInput } from 'src/entities/types/inputs';
 
 @Resolver()
 export class PostResolver {
@@ -20,5 +11,14 @@ export class PostResolver {
   @Mutation(() => Post)
   createPost(@Args('data') data: createPostInput) {
     return this.prismaService.post.create({ data });
+  }
+
+  @Mutation(() => Post)
+  updatePost(@Args('data') data: updatePostInput) {
+    return this.prismaService.post.update({
+      where: { id: data.id },
+      data,
+      include: { author: true },
+    });
   }
 }

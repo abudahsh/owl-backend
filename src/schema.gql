@@ -23,6 +23,7 @@ type Query {
 type Mutation {
   registerUser(data: SignupUserInput!): User!
   createPost(data: createPostInput!): Post!
+  updatePost(data: updatePostInput!): Post!
 }
 
 input SignupUserInput {
@@ -33,6 +34,13 @@ input SignupUserInput {
 
 input createPostInput {
   authorId: Float!
+  content: String
+  title: String
+}
+
+input updatePostInput {
+  authorId: Float!
+  id: Float!
   content: String
   title: String
 }
